@@ -1,7 +1,291 @@
 <!DOCTYPE html>
-<html>
-<head><title>Ordenes de Compra</title></head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orden de Compra</title>
+  <style>
+    @page {
+      size: 8.5in 11in;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.3;
+      background-color: #ffffff;
+      color: #333;
+      padding: 35px;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 16px;
+      color: #2c3e50;
+      text-align: end;
+      margin: 0em 0em 0.2em 0em;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #34495e;
+      margin: 1em 0em 1em 0em;
+      text-align: center;
+    }
+
+    .logo {
+      width: 200px;
+      height: 120px;
+      float: left;
+      margin: -2em 0em 0em -2em;
+    }
+
+    p {
+      margin: 0em 0em 0em 0em;
+    }
+
+    span {
+      text-align: end;
+      margin: auto;
+      text-decoration: underline;
+    }
+
+    table#DatosOrdenCompra {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: auto;
+      margin-top: 5px;
+      padding: 1px;
+    }
+
+    table#DetalleProductos {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    table#Totales {
+      width: 30%;
+      border-collapse: collapse;
+      margin-top: 5px;
+      table-layout: auto;
+    }
+
+    table#DatosOrdenCompra th,
+    table#DatosOrdenCompra td {
+      border: 1px solid #ddd;
+      padding: 1px;
+      text-align: start;
+    }
+
+    table#DetalleProductos th,
+    table#DetalleProductos td {
+      border: 2px solid #ddd;
+      padding: 3px;
+      text-align: start;
+    }
+
+    table#Totales th,
+    table#Totales td {
+      border: 1px solid #fff;
+      padding: 5px;
+      color: blue;
+    }
+
+    table#DatosOrdenCompra th {
+      border: 1px solid #fff;
+      text-align: justify-all;
+      margin: auto;
+    }
+
+    table#DetalleProductos th {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    table#Totales th {
+      border: 0px solid #fff;
+      text-align: end;
+      margin: auto;
+    }
+
+    table#DatosOrdenCompra td {
+      border: 1.5px solid #fff;
+      text-align: justify-all;
+      margin: auto;
+    }
+
+    table#DetalleProductos td {
+      border: 2px solid #ddd;
+      color: black;
+      margin: auto;
+    }
+
+    table#Totales td {
+      color: blue;
+      margin: auto;
+      text-align: end;
+    }
+
+    .observaciones {
+      margin-top: 100px;
+      font-style: italic;
+      text-align: justify;
+    }
+
+    .footer {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      height: 80px;
+      font-size: auto;
+      color: #777;
+      align-content: center;
+    }
+
+    .highlight {
+      background-color: #ecf0f1;
+    }
+  </style>
+</head>
 <body>
-  <h1>Bienvenido al sistema de órdenes de compra</h1>
+
+  <header>
+    <div id="logotipo"></div>
+    <h1><strong id="empresa"></strong></h1>
+    <h1><em id="eslogan"></em></h1>
+  </header>
+  <br />
+  <h2>ORDEN DE COMPRA</h2>
+
+  <p align="right"><strong>TIPO DE COMPRA:</strong><u><em id="tipoOrdenCompra"></em></u></p>
+
+  <table id="DatosOrdenCompra">
+    <tr>
+      <th><strong>PROVEEDOR:</strong></th>
+      <td><u id="proveedor"></u></td>
+      <th><strong>NÚMERO:</strong></th>
+      <td><u id="numeroOrden"></u></td>
+    </tr>
+    <tr>
+      <th><strong>ÁREA O PROYECTO:</strong></th>
+      <td><u id="area"></u></td>
+      <th><strong>FECHA:</strong></th>
+      <td><u id="fecha"></u></td>
+    </tr>
+    <tr>
+      <th><strong>SOLICITANTE:</strong></th>
+      <td><u id="solicitante"></u></td>
+      <th><strong>SOLICITUD No:</strong></th>
+      <td><u id="solicitud"></u></td>
+    </tr>
+    <tr>
+      <th><strong>COMPRADOR:</strong></th>
+      <td><u id="comprador"></u></td>
+      <th><strong>FECHA ENTREGA:</strong></th>
+      <td><u id="fechaEntrega"></u></td>
+    </tr>
+  </table>
+
+  <table id="DetalleProductos">
+    <thead>
+      <tr>
+        <th>DESCRIPCIÓN DE LOS BIENES O INSUMOS</th>
+        <th>UNIDAD DE MEDIDA</th>
+        <th>CANTIDAD</th>
+        <th>COSTO UNITARIO</th>
+        <th>IMPORTE</th>
+      </tr>
+    </thead>
+    <tbody id="detalleDeCompra"></tbody>
+  </table>
+
+  <table id="Totales" ALIGN="right">
+    <tr>
+      <th><strong>SUBTOTAL:</strong></th>
+      <td><span id="subTotal"></span></td>
+    </tr>
+    <tr>
+      <th><strong>IMPUESTOS:</strong></th>
+      <td><span id="impuestos"></span></td>
+    </tr>
+    <tr>
+      <th><strong>TOTAL:</strong></th>
+      <td><span id="total"></span></td>
+    </tr>
+  </table>
+
+  <div class="observaciones">
+    <strong>OBSERVACIONES:</strong> <u id="observaciones"></u>
+  </div>
+
+  <div class="footer">
+    Solicitado por: ___________________________<br />
+    Autorizado por: ___________________________
+  </div>
+
+  <script>
+    // Función para obtener parámetros de la URL
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    // Función para establecer texto
+    function setText(id, value) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.textContent = decodeURIComponent(value || "").replace(/\+/g, " ");
+      }
+    }
+
+    // Función para establecer HTML
+    function setHTML(id, value) {
+      const element = document.getElementById(id);
+      if (element && value) {
+        element.innerHTML = decodeURIComponent(value.replace(/\+/g, " "));
+      }
+    }
+
+    // Rellenar campos dinámicos
+    setText("empresa", getParam("empresa"));
+    setText("tipoOrdenCompra", getParam("tipoOrdenCompra"));
+    setText("proveedor", getParam("proveedor"));
+    setText("area", getParam("area"));
+    setText("solicitante", getParam("solicitante"));
+    setText("comprador", getParam("comprador"));
+    setText("numeroOrden", getParam("numeroOrden"));
+    setText("fecha", getParam("fecha"));
+    setText("solicitud", getParam("solicitud"));
+    setText("fechaEntrega", getParam("fechaEntrega"));
+    setText("subTotal", getParam("subTotal"));
+    setText("impuestos", getParam("impuestos"));
+    setText("total", getParam("total"));
+    setText("observaciones", getParam("observaciones"));
+
+    // Logo
+    const logoUrl = getParam("logotipo");
+    if (logoUrl) {
+      document.getElementById("logotipo").innerHTML = decodeURIComponent(logoUrl.replace(/\+/g, " "));
+    }
+
+    // Detalle de productos
+    setHTML("detalleDeCompra", getParam("detalleDeCompra"));
+
+    // Imprimir automáticamente
+    window.onload = function () {
+      window.print();
+    };
+  </script>
 </body>
 </html>
